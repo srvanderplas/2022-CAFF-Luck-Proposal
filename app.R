@@ -10,6 +10,10 @@
 library(shiny)
 library(bslib)
 library(thematic)
+library(sf)
+library(ggplot2)
+
+data <- st_read("TreatmentStrips.shp")
 
 # Set up shiny app theme
 theme <- bs_theme(
@@ -24,13 +28,16 @@ thematic::thematic_shiny()
 # Define UI for application that draws a histogram
 ui <- navbarPage("NFARMS Project",
                  theme = theme,
-                 tabPanel("In-Season"),
+                 tabPanel("In-Season",
+                          plotOutput("map")),
                  tabPanel("Sensor Data"),
                  tabPanel("Crop Health")
 )
 
 server <- function(input, output) {
-
+  output$map <- renderPlot({
+    ggplot(data, aes(fill = Trt)) + geom_sf()
+  })
 }
 
 # Run the application
