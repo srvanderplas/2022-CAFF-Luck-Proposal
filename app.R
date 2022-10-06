@@ -31,7 +31,8 @@ ui <- navbarPage("NFARMS Project",
                  tabPanel("In-Season",
                           plotOutput("map")),
                  tabPanel("Sensor Data"),
-                 tabPanel("Crop Health")
+                 tabPanel("Crop Health"),
+                 tabPanel("Soil Health")
 )
 
 server <- function(input, output) {
